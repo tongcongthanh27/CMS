@@ -30,33 +30,33 @@ import lombok.extern.slf4j.Slf4j;   // bat loi o service
             return ResponseEntity.badRequest().body(apiResponse);
         }
 
-        @ExceptionHandler(value = MethodArgumentNotValidException.class)
-        ResponseEntity<ApiResponse> handlingValidation(MethodArgumentNotValidException exception) {
-            String enumKey = exception.getFieldError().getDefaultMessage();
-
-            ErrorCode errorCode = ErrorCode.INVALID_KEY;
-            Map<String, Object> attributes = null;
-            try {
-                errorCode = ErrorCode.valueOf(enumKey);
-                var contrainViolation =
-                        exception.getBindingResult().getAllErrors().getFirst().unwrap(ConstraintViolation.class);
-
-                attributes = contrainViolation.getConstraintDescriptor().getAttributes();
-                log.info(attributes.toString());
-            } catch (IllegalArgumentException e) {
-
-            }
-
-            ApiResponse apiResponse = new ApiResponse();
-
-            apiResponse.setCode(errorCode.getCode());
-            apiResponse.setMessage(
-                    Objects.nonNull(attributes)
-                            ? mapAttribute(errorCode.getMessage(), attributes)
-                            : errorCode.getMessage());
-
-            return ResponseEntity.badRequest().body(apiResponse);
-        }
+//        @ExceptionHandler(value = MethodArgumentNotValidException.class)
+//        ResponseEntity<ApiResponse> handlingValidation(MethodArgumentNotValidException exception) {
+//            String enumKey = exception.getFieldError().getDefaultMessage();
+//
+//            ErrorCode errorCode = ErrorCode.INVALID_KEY;
+//            Map<String, Object> attributes = null;
+//            try {
+//                errorCode = ErrorCode.valueOf(enumKey);
+//                var contrainViolation =
+//                        exception.getBindingResult().getAllErrors().getFirst().unwrap(ConstraintViolation.class);
+//
+//                attributes = contrainViolation.getConstraintDescriptor().getAttributes();
+//                log.info(attributes.toString());
+//            } catch (IllegalArgumentException e) {
+//
+//            }
+//
+//            ApiResponse apiResponse = new ApiResponse();
+//
+//            apiResponse.setCode(errorCode.getCode());
+//            apiResponse.setMessage(
+//                    Objects.nonNull(attributes)
+//                            ? mapAttribute(errorCode.getMessage(), attributes)
+//                            : errorCode.getMessage());
+//
+//            return ResponseEntity.badRequest().body(apiResponse);
+//        }
 
         // custom
         @ExceptionHandler(value = AppException.class)

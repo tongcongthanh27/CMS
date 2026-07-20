@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.example.demo.enums.AccountStatus;
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -21,11 +22,15 @@ public class User {
 
     String username;
     String password;
-    String firstName;
-    String lastName;
+    String fullName;
+    String email;
     LocalDate dob;
     Integer failedPassword;
     Integer failedOtp;
+
+
+    @Enumerated(EnumType.STRING)
+    AccountStatus status;
 
     @ManyToMany
     Set<Role> roles;
