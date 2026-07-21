@@ -55,6 +55,22 @@ public class UserController {
                 .build();
     }
 
+    @GetMapping("/search")
+    ApiResponse<PageResponse<UserResponse>> searchUsers(
+            @RequestParam(value = "username", required = false) String username,
+            @RequestParam(value = "fullName", required = false) String fullName,
+            @RequestParam(value = "email", required = false) String email,
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy,
+            @RequestParam(value = "sortDirection", defaultValue = "ASC", required = false) Sort.Direction sortDirection){
+        
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortDirection, sortBy));
+        return ApiResponse.<PageResponse<UserResponse>>builder()
+                .result(userService.searchUsersAdvanced(username, fullName, email, pageable))
+                .build();
+    }
+
     @GetMapping("/{id}")
     ApiResponse<UserResponse> getUserById(@PathVariable String id){
         return ApiResponse.<UserResponse>builder()

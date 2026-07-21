@@ -63,6 +63,43 @@ public class UserService {
                 .content(userResponses)
                 .build();
     }
+
+    public PageResponse<UserResponse> searchUsers(String keyword, Pageable pageable){
+        Page<User> page = userRepository.searchUsers(keyword, pageable);
+        List<UserResponse> userResponses = page.getContent()
+                .stream()
+                .map(userMapper::toUserResponse)
+                .collect(Collectors.toList());
+        
+        return PageResponse.<UserResponse>builder()
+                .pageNo(page.getNumber())
+                .pageSize(page.getSize())
+                .totalElements(page.getTotalElements())
+                .totalPages(page.getTotalPages())
+                .isFirst(page.isFirst())
+                .isLast(page.isLast())
+                .content(userResponses)
+                .build();
+    }
+
+    public PageResponse<UserResponse> searchUsersAdvanced(String username, String fullName, String email, Pageable pageable){
+        Page<User> page = userRepository.searchUsersAdvanced(username, fullName, email, pageable);
+        List<UserResponse> userResponses = page.getContent()
+                .stream()
+                .map(userMapper::toUserResponse)
+                .collect(Collectors.toList());
+        
+        return PageResponse.<UserResponse>builder()
+                .pageNo(page.getNumber())
+                .pageSize(page.getSize())
+                .totalElements(page.getTotalElements())
+                .totalPages(page.getTotalPages())
+                .isFirst(page.isFirst())
+                .isLast(page.isLast())
+                .content(userResponses)
+                .build();
+    }
+
     public UserResponse getUserByID(String id){
         return userMapper.toUserResponse(
                 userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
