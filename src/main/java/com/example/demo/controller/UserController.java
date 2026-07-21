@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.request.ApiResponse;
 import com.example.demo.dto.request.UserCreationRequest;
+import com.example.demo.dto.request.UserStatusUpdate;
 import com.example.demo.dto.request.UserUpdateRequest;
+import com.example.demo.dto.response.PageResponse;
 import com.example.demo.dto.response.UserResponse;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
@@ -11,6 +13,9 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +42,19 @@ public class UserController {
                 .build();
     }
 
+    @GetMapping("/pagination")
+    ApiResponse<PageResponse<UserResponse>> getUsersWithPagination(
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy,
+            @RequestParam(value = "sortDirection", defaultValue = "ASC", required = false) Sort.Direction sortDirection){
+        
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortDirection, sortBy));
+        return ApiResponse.<PageResponse<UserResponse>>builder()
+                .result(userService.getUsersWithPagination(pageable))
+                .build();
+    }
+
     @GetMapping("/{id}")
     ApiResponse<UserResponse> getUserById(@PathVariable String id){
         return ApiResponse.<UserResponse>builder()
@@ -60,4 +78,13 @@ public class UserController {
                 .message("User da update")
                 .build();
     }
+
+    @PutMapping("/{id}/status")
+    public ApiResponse<Void> updateStatus(@PathVariable String id, @RequestBody @Valid UserStatusUpdate userStatusUpdate){
+        userService.updateStatus(id, userStatusUpdate);
+        return ApiResponse.<Void>builder()
+                .message("Active tai khoan thanh cong")
+                .build();
+    }
 }
+

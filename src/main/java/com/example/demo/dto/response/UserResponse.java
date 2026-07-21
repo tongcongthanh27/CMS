@@ -3,6 +3,7 @@ package com.example.demo.dto.response;
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.example.demo.enums.AccountStatus;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,4 +20,6 @@ public class UserResponse {
     LocalDate dob;
     String fullName;
     String email;
+    String phone;
+    AccountStatus status;
 }

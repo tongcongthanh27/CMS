@@ -27,7 +27,7 @@ public class User {
     LocalDate dob;
     Integer failedPassword;
     Integer failedOtp;
-
+    String phone;
 
     @Enumerated(EnumType.STRING)
     AccountStatus status;

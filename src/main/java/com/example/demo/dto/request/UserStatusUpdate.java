@@ -1,6 +1,12 @@
 package com.example.demo.dto.request;
-
 import java.time.LocalDate;
+import java.util.Set;
+
+import com.example.demo.entity.Role;
+import com.example.demo.enums.AccountStatus;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -10,15 +16,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserCreationRequest {
-    @Size(min = 3, message = "USERNAME_INVALID")
-    String username;
-
-    @Size(min = 8, message = "INVALID_PASSWORD")
-    String password;
-
-    LocalDate dob;
-    String phone;
-    String fullName;
-    String email;
+public class UserStatusUpdate {
+    AccountStatus accountStatus;
 }

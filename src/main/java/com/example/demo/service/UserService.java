@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.request.UserCreationRequest;
+import com.example.demo.dto.request.UserStatusUpdate;
 import com.example.demo.dto.request.UserUpdateRequest;
+import com.example.demo.dto.response.PageResponse;
 import com.example.demo.dto.response.UserResponse;
 import com.example.demo.entity.User;
 import com.example.demo.enums.AccountStatus;
@@ -13,9 +15,12 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -41,6 +46,23 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public PageResponse<UserResponse> getUsersWithPagination(Pageable pageable){
+        Page<User> page = userRepository.findAll(pageable);
+        List<UserResponse> userResponses = page.getContent()
+                .stream()
+                .map(userMapper::toUserResponse)
+                .collect(Collectors.toList());
+        
+        return PageResponse.<UserResponse>builder()
+                .pageNo(page.getNumber())
+                .pageSize(page.getSize())
+                .totalElements(page.getTotalElements())
+                .totalPages(page.getTotalPages())
+                .isFirst(page.isFirst())
+                .isLast(page.isLast())
+                .content(userResponses)
+                .build();
+    }
     public UserResponse getUserByID(String id){
         return userMapper.toUserResponse(
                 userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
@@ -55,4 +77,11 @@ public class UserService {
         userMapper.updateUser(user, request);
         return userMapper.toUserResponse(userRepository.save(user));
     }
+
+    public void updateStatus(String id, UserStatusUpdate userStatusUpdate){
+        User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        user.setStatus(userStatusUpdate.getAccountStatus());
+        userRepository.save(user);
+    }
 }
+
