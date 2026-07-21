@@ -18,7 +18,10 @@ public class UserCreationRequest {
     String password;
 
     LocalDate dob;
+
     String phone;
+
     String fullName;
+
     String email;
 }
