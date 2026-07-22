@@ -18,6 +18,9 @@ public enum ErrorCode {
     UNAUTHENTICATED(1006, "Unauthenticated", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(1007, "You do not have permission", HttpStatus.FORBIDDEN),
     INVALID_DOB(1008, "Your age must be at least {min}", HttpStatus.BAD_REQUEST),
+    ACCOUNT_LOCKED(1009,"Your account has been locked.Please contact the Admin.", HttpStatus.FORBIDDEN),
+    INCORRECT_PASSWORD(1010,"Password incorrect", HttpStatus.NOT_FOUND),
+    PASSWORD_ATTEMPT_EXCEEDED(1011,"incorrect password has exceeded the allowed number of attempts", HttpStatus.TOO_MANY_REQUESTS),
     ;
 
     private int code = 1000;
