@@ -17,6 +17,8 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,7 @@ public class UserService {
     UserRepository userRepository;
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
+    AuthenticationService authenticationService;
     public UserResponse createUser(UserCreationRequest request){
         User user = userMapper.toUser(request);
         if (userRepository. existsByUsername(request.getUsername())) {
@@ -42,6 +45,14 @@ public class UserService {
         user.setFailedPassword(0);
 
         return userMapper.toUserResponse(userRepository.save(user));
+    }
+    @PostAuthorize("returnObject.username == authentication.name")
+    public UserResponse myInfo(){
+        var context = SecurityContextHolder.getContext();
+        String username = context.getAuthentication().getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        return userMapper.toUserResponse(user);
     }
 
     public List<User> getUsers(){

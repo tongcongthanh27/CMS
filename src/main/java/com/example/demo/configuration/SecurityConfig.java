@@ -1,5 +1,6 @@
 package com.example.demo.configuration;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,6 +18,7 @@ import javax.crypto.spec.SecretKeySpec;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     @Bean
@@ -26,7 +28,7 @@ public class SecurityConfig {
     private final String[] PUBLIC_ENDPOINTS = {"/auth/login","/users",
             "/auth/introspect","/auth/logout","/auth/refresh"
     };
-    private CustomJwtDecoder customJwtDecoder;
+    private final CustomJwtDecoder customJwtDecoder;
 
 
     @Bean
