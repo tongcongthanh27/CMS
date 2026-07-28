@@ -27,7 +27,8 @@ public class SecurityConfig {
     }
     private final String[] PUBLIC_ENDPOINTS = {"/auth/login","/users",
             "/auth/introspect","/auth/logout","/auth/refresh","/auth/forgot-password",
-            "/auth/reset-password/","/auth/reset-password/validate"
+            "/auth/reset-password/validate",
+            "/auth/reset-password"
     };
     private final CustomJwtDecoder customJwtDecoder;
 
@@ -36,6 +37,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(request ->
                 request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers(HttpMethod.GET,
+                                "/auth/reset-password/validate"
+                        ).permitAll()
                         .anyRequest().authenticated());
 
         httpSecurity.oauth2ResourceServer(oauth2 ->
