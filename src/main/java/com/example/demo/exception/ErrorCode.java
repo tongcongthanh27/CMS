@@ -21,6 +21,10 @@ public enum ErrorCode {
     ACCOUNT_LOCKED(1009,"Your account has been locked.Please contact the Admin.", HttpStatus.FORBIDDEN),
     INCORRECT_PASSWORD(1010,"Password incorrect", HttpStatus.NOT_FOUND),
     PASSWORD_ATTEMPT_EXCEEDED(1011,"incorrect password has exceeded the allowed number of attempts", HttpStatus.TOO_MANY_REQUESTS),
+    EMAIL_NOT_EXISTED(1012, "Please provide an valid email!", HttpStatus.NOT_FOUND),
+    PASSWORD_CONFIRM_NOT_MATCH(1013,"Password confirm not match",HttpStatus.BAD_REQUEST),
+    PASSWORD_SAME_AS_OLD(1014, "New password must be different from old password", HttpStatus.BAD_REQUEST),
+    INVALID_TOKEN(1015, "Invalid or expired token", HttpStatus.BAD_REQUEST)
     ;
 
     private int code = 1000;
