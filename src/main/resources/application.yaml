@@ -27,6 +27,8 @@ spring:
           starttls:
             enable: true
             required: true
+        mime:
+          charset: UTF-8
 
 
 jwt:

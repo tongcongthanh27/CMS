@@ -28,7 +28,7 @@ public class EmailService {
             mimeMessageHelper.setTo(toEmail);
             mimeMessageHelper.setSubject("[CMS VNPT] Đặt lại mật khẩu");
 
-            String resetLink = frontendUrl + "/reset-password?token" + token;
+            String resetLink = frontendUrl + "/reset-password?token=" + token;
             String htmlContent = buildEmailContent(resetLink,expiryMinutes);
             mimeMessageHelper.setText(htmlContent,true);
 

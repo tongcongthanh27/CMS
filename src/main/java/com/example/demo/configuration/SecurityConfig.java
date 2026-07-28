@@ -26,8 +26,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(10);
     }
     private final String[] PUBLIC_ENDPOINTS = {"/auth/login","/users",
-            "/auth/introspect","/auth/logout","/auth/refresh","/mail/forgot-password",
-            "/mail/forgot-password/**"
+            "/auth/introspect","/auth/logout","/auth/refresh","/auth/forgot-password",
+            "/auth/reset-password/","/auth/reset-password/validate"
     };
     private final CustomJwtDecoder customJwtDecoder;
 
