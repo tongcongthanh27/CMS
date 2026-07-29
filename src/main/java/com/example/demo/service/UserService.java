@@ -33,7 +33,6 @@ public class UserService {
     UserRepository userRepository;
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
-    AuthenticationService authenticationService;
     public UserResponse createUser(UserCreationRequest request){
         User user = userMapper.toUser(request);
         if (userRepository. existsByUsername(request.getUsername())) {

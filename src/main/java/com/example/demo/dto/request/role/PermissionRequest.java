@@ -1,7 +1,4 @@
-package com.example.demo.entity;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+package com.example.demo.dto.request.role;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -11,9 +8,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity
-public class Permission {
-    @Id
+public class PermissionRequest{
     String name;
     String description;
+
 }
