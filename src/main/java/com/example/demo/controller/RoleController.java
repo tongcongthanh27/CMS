@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 import com.example.demo.dto.request.ApiResponse;
 import com.example.demo.dto.request.UserUpdateRequest;
+import com.example.demo.dto.request.role.AssignRoleRequest;
 import com.example.demo.dto.request.role.RoleRequest;
+import com.example.demo.dto.request.role.RoleUpdateRequest;
+import com.example.demo.dto.response.UserResponse;
 import com.example.demo.dto.response.role.RoleResponse;
 import com.example.demo.service.RoleService;
 import jakarta.validation.Valid;
@@ -21,7 +24,14 @@ import java.util.List;
 public class RoleController {
     RoleService roleService;
 
-
+    @PutMapping("/{id}/roles")
+    ApiResponse<UserResponse> assignRole(@PathVariable String id,
+                                         @RequestBody AssignRoleRequest request){
+        return ApiResponse.<UserResponse>builder()
+                .message("Cập nhật quyền cho người dùng thành công")
+                .result(roleService.assignRole(id,request))
+                .build();
+    }
 
 
 
@@ -48,5 +58,12 @@ public class RoleController {
     ApiResponse<Void> delete(@PathVariable String role) {
         roleService.delete(role);
         return ApiResponse.<Void>builder().build();
+    }
+
+    @PutMapping
+    ApiResponse<RoleResponse> updateRole(@RequestBody RoleUpdateRequest request){
+        return ApiResponse.<RoleResponse>builder()
+                .result(roleService.updateRole(request))
+                .build();
     }
 }
