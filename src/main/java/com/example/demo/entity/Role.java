@@ -21,6 +21,4 @@ public class Role {
 
     @ManyToMany
     Set<Permission> permissions;
-    @OneToOne
-    PasswordResetToken forgotPassword;
 }

@@ -7,6 +7,7 @@ import com.example.demo.dto.response.PageResponse;
 import com.example.demo.dto.response.UserResponse;
 import com.example.demo.entity.User;
 import com.example.demo.enums.AccountStatus;
+import com.example.demo.enums.Role;
 import com.example.demo.exception.AppException;
 import com.example.demo.exception.ErrorCode;
 import com.example.demo.mapper.UserMapper;
@@ -33,7 +34,6 @@ public class UserService {
     UserRepository userRepository;
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
-    AuthenticationService authenticationService;
     public UserResponse createUser(UserCreationRequest request){
         User user = userMapper.toUser(request);
         if (userRepository. existsByUsername(request.getUsername())) {
@@ -43,6 +43,8 @@ public class UserService {
         user.setStatus(AccountStatus.LOCKED);
         user.setFailedOtp(0);
         user.setFailedPassword(0);
+
+
 
         return userMapper.toUserResponse(userRepository.save(user));
     }

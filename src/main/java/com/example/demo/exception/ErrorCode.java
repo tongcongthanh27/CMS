@@ -24,7 +24,11 @@ public enum ErrorCode {
     EMAIL_NOT_EXISTED(1012, "Please provide an valid email!", HttpStatus.NOT_FOUND),
     PASSWORD_CONFIRM_NOT_MATCH(1013,"Password confirm not match",HttpStatus.BAD_REQUEST),
     PASSWORD_SAME_AS_OLD(1014, "New password must be different from old password", HttpStatus.BAD_REQUEST),
-    INVALID_TOKEN(1015, "Invalid or expired token", HttpStatus.BAD_REQUEST)
+    INVALID_TOKEN(1015, "Invalid or expired token", HttpStatus.BAD_REQUEST),
+    PERMISSION_EXISTED(1002, "Permission existed", HttpStatus.BAD_REQUEST),
+    PERMISSION_NOT_EXISTED(1003, "Permission NOT existed", HttpStatus.BAD_REQUEST),
+    ROLE_EXISTED(1004, "Role existed", HttpStatus.BAD_REQUEST),
+    ROLE_NOT_EXISTED(1005, "Role NOT existed", HttpStatus.BAD_REQUEST)
     ;
 
     private int code = 1000;

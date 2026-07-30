@@ -85,7 +85,7 @@ public class UserController {
                 .build();
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     ApiResponse<UserResponse> getUserByEmail(@PathVariable String email){
         return ApiResponse.<UserResponse>builder()
                 .result(userService.getUserByEmail(email))

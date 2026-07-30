@@ -6,7 +6,7 @@ import com.example.demo.dto.response.UserResponse;
 import com.example.demo.entity.User;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring") // bao de gen ra dung cho spring
+@Mapper(componentModel = "spring", uses = {RoleMapper.class}) // bao de gen ra dung cho spring
 public interface UserMapper  {
     User toUser(UserCreationRequest request);
     UserResponse toUserResponse(User user);
