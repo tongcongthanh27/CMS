@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.request.ApiResponse;
 import com.example.demo.dto.request.UserCreationRequest;
-import com.example.demo.dto.request.UserStatusUpdate;
+import com.example.demo.dto.request.StatusUpdate;
 import com.example.demo.dto.request.UserUpdateRequest;
 import com.example.demo.dto.response.PageResponse;
 import com.example.demo.dto.response.UserResponse;
@@ -110,8 +110,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}/status")
-    public ApiResponse<Void> updateStatus(@PathVariable String id, @RequestBody @Valid UserStatusUpdate userStatusUpdate){
-        userService.updateStatus(id, userStatusUpdate);
+    public ApiResponse<Void> updateStatus(@PathVariable String id, @RequestBody @Valid StatusUpdate statusUpdate){
+        userService.updateStatus(id, statusUpdate);
         return ApiResponse.<Void>builder()
                 .message("Active tai khoan thanh cong")
                 .build();

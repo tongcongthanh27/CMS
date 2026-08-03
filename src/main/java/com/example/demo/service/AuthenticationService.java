@@ -8,7 +8,7 @@ import com.example.demo.dto.response.AuthenticationResponse;
 import com.example.demo.dto.response.IntrospectResponse;
 import com.example.demo.entity.InvalidatedToken;
 import com.example.demo.entity.User;
-import com.example.demo.enums.AccountStatus;
+import com.example.demo.enums.Status;
 import com.example.demo.exception.AppException;
 import com.example.demo.exception.ErrorCode;
 import com.example.demo.repository.InvalidatedTokenRepository;
@@ -62,7 +62,7 @@ public class AuthenticationService {
             user.setFailedPassword(user.getFailedPassword()+1);
             userRepository.save(user);
             if(user.getFailedPassword()>=5){
-                user.setStatus(AccountStatus.LOCKED);
+                user.setStatus(Status.LOCKED);
                 user.setFailedPassword(0);
                 userRepository.save(user);
                 throw new AppException(ErrorCode.PASSWORD_ATTEMPT_EXCEEDED);

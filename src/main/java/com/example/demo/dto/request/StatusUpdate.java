@@ -1,6 +1,6 @@
 package com.example.demo.dto.request;
-import java.time.LocalDate;
 
+import com.example.demo.enums.Status;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -9,10 +9,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserUpdateRequest {
-    String password;
-    String fullName;
-    String email;
-    LocalDate dob;
-    String phone;
+public class StatusUpdate {
+    Status status;
 }

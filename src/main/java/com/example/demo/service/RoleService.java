@@ -36,6 +36,8 @@ public class RoleService {
     UserMapper userMapper;
     public RoleResponse createRole(RoleRequest request){
         Role role = roleMapper.toRole(request);
+        if (roleRepository.existsById(request.getName()))
+            throw new AppException(ErrorCode.ROLE_EXISTED);
         var permissions = permissionRepository.findAllById(request.getPermissions());
         role.setPermissions(new HashSet<>(permissions));
         role = roleRepository.save(role);

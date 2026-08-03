@@ -4,8 +4,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import com.example.demo.dto.response.role.RoleResponse;
-import com.example.demo.entity.Role;
-import com.example.demo.enums.AccountStatus;
+import com.example.demo.enums.Status;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -22,6 +21,6 @@ public class UserResponse {
     String fullName;
     String email;
     String phone;
-    AccountStatus status;
+    Status status;
     Set<RoleResponse> roles;
 }

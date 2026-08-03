@@ -1,13 +1,12 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.request.UserCreationRequest;
-import com.example.demo.dto.request.UserStatusUpdate;
+import com.example.demo.dto.request.StatusUpdate;
 import com.example.demo.dto.request.UserUpdateRequest;
 import com.example.demo.dto.response.PageResponse;
 import com.example.demo.dto.response.UserResponse;
 import com.example.demo.entity.User;
-import com.example.demo.enums.AccountStatus;
-import com.example.demo.enums.Role;
+import com.example.demo.enums.Status;
 import com.example.demo.exception.AppException;
 import com.example.demo.exception.ErrorCode;
 import com.example.demo.mapper.UserMapper;
@@ -40,7 +39,7 @@ public class UserService {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
         user.setPassword(passwordEncoder.encode(request.getPassword()) );
-        user.setStatus(AccountStatus.LOCKED);
+        user.setStatus(Status.LOCKED);
         user.setFailedOtp(0);
         user.setFailedPassword(0);
 
@@ -136,9 +135,9 @@ public class UserService {
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
-    public void updateStatus(String id, UserStatusUpdate userStatusUpdate){
+    public void updateStatus(String id, StatusUpdate statusUpdate){
         User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
-        user.setStatus(userStatusUpdate.getAccountStatus());
+        user.setStatus(statusUpdate.getStatus());
         userRepository.save(user);
     }
 }

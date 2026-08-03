@@ -28,7 +28,9 @@ public enum ErrorCode {
     PERMISSION_EXISTED(1002, "Permission existed", HttpStatus.BAD_REQUEST),
     PERMISSION_NOT_EXISTED(1003, "Permission NOT existed", HttpStatus.BAD_REQUEST),
     ROLE_EXISTED(1004, "Role existed", HttpStatus.BAD_REQUEST),
-    ROLE_NOT_EXISTED(1005, "Role NOT existed", HttpStatus.BAD_REQUEST)
+    ROLE_NOT_EXISTED(1005, "Role NOT existed", HttpStatus.BAD_REQUEST),
+    PHONE_PREFIX_EXISTED(1006, "Phone prefix already exists", HttpStatus.BAD_REQUEST),
+    PHONE_PREFIX_NOT_FOUND(1006, "Phone prefix not found", HttpStatus.NOT_FOUND)
     ;
 
     private int code = 1000;

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import java.util.Set;
 
-import com.example.demo.enums.AccountStatus;
+import com.example.demo.enums.Status;
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -31,7 +31,7 @@ public class User {
     String phone;
 
     @Enumerated(EnumType.STRING)
-    AccountStatus status;
+    Status status;
 
     @ManyToMany
     Set<Role> roles;
